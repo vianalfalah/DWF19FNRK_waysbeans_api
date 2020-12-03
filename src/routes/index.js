@@ -2,15 +2,24 @@ const express = require("express");
 
 const router = express.Router();
 
-const {
-  getTodos,
-  getTodo,
-  addTodo,
-  updateTodo,
-  deleteTodo,
-} = require("../controllers/todos");
+//Biar gak lupa
+// const {
+//   getTodos,
+//   getTodo,
+//   addTodo,
+//   updateTodo,
+//   deleteTodo,
+// } = require("../controllers/todos");
 
-const { getPosts } = require("../controllers/post");
+// const { getPosts } = require("../controllers/post");
+
+// router.get("/todos", getTodos);
+// router.get("/todo/:id", getTodo);
+// router.post("/todo", addTodo);
+// router.put("/todo/:id", updateTodo);
+// router.delete("/todo/:id", deleteTodo);
+
+// router.get("/posts", getPosts);
 
 const {
   getUsers,
@@ -20,14 +29,6 @@ const {
   deleteUser,
   restoreUser,
 } = require("../controllers/user");
-
-router.get("/todos", getTodos);
-router.get("/todo/:id", getTodo);
-router.post("/todo", addTodo);
-router.put("/todo/:id", updateTodo);
-router.delete("/todo/:id", deleteTodo);
-
-router.get("/posts", getPosts);
 
 router.get("/users", getUsers);
 router.get("/user/:id", getSingleUserById);
