@@ -5,7 +5,7 @@ const express = require("express");
 const app = express();
 
 const router = require("./src/routes");
-const routerv2 = require("./src/routes/routesv2");
+// const routerv2 = require("./src/routes/routesv2");
 
 //define the server port
 const port = 5000;
@@ -14,7 +14,7 @@ const port = 5000;
 app.use(express.json());
 
 app.use("/api/v1", router);
-app.use("/api/v2", routerv2);
+// app.use("/api/v2", routerv2);
 
 app.listen(port, () => console.log("Listening on port ${port} !!!"));
 
