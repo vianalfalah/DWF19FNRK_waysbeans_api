@@ -2,16 +2,30 @@ const express = require("express");
 
 const router = express.Router();
 
-const {
-  getTodos,
-  getTodo,
-  addTodo,
-  updateTodo,
-  deleteTodo,
-} = require("../controllers/todos");
+//Biar Gak Lupa
+// const {
+//   getTodos,
+//   getTodo,
+//   addTodo,
+//   updateTodo,
+//   deleteTodo,
+// } = require("../controllers/todos");
 
-const { getPosts } = require("../controllers/post");
+// const { getPosts } = require("../controllers/post");
 
+// router.get("/todos", getTodos);
+// router.get("/todo/:id", getTodo);
+// router.post("/todo", addTodo);
+// router.put("/todo/:id", updateTodo);
+// router.delete("/todo/:id", deleteTodo);
+
+// router.get("/posts", getPosts);
+
+const { register, login, auth } = require("../controllers/auth");
+// router.post("/register", register);
+router.post("/login", login);
+
+//Users
 const {
   getUsers,
   getSingleUserById,
@@ -21,19 +35,42 @@ const {
   restoreUser,
 } = require("../controllers/user");
 
-router.get("/todos", getTodos);
-router.get("/todo/:id", getTodo);
-router.post("/todo", addTodo);
-router.put("/todo/:id", updateTodo);
-router.delete("/todo/:id", deleteTodo);
-
-router.get("/posts", getPosts);
-
 router.get("/users", getUsers);
 router.get("/user/:id", getSingleUserById);
-router.post("/user/", addUser);
-router.patch("/user/:id", updateUser);
 router.delete("/user/:id", deleteUser);
 router.post("/user-restore/:id", restoreUser);
+
+//Products
+const {
+  getProducts,
+  getSingleProductById,
+  addProduct,
+  updateProduct,
+  deleteProduct,
+  restoreProduct,
+} = require("../controllers/products");
+
+router.get("/products", getProducts);
+router.get("/product/:id", getSingleProductById);
+router.post("/product/", addProduct);
+router.patch("/product/:id", updateProduct);
+router.delete("/product/:id", deleteProduct);
+router.post("/product-restore/:id", restoreProduct);
+
+const {
+  getTransactions,
+  getSingleTranById,
+  addTran,
+  updateTran,
+  deleteTran,
+  restoreTran,
+} = require("../controllers/transaction");
+
+router.get("/transactions", auth, getTransactions);
+router.get("/transaction/:id", getSingleTranById);
+router.post("/transaction/", addTran);
+router.patch("/transaction/:id", updateTran);
+router.delete("/transaction/:id", deleteTran);
+router.post("/transaction-restore/:id", restoreTran);
 
 module.exports = router;

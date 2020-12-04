@@ -1,5 +1,6 @@
 //inisialisasi express modul
 const express = require("express");
+const multer = require("multer");
 
 //use express in app variable
 const app = express();
