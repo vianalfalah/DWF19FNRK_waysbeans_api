@@ -3,46 +3,46 @@ const Joi = require("joi");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 
-// exports.register = async (req, res) => {
-//   try {
-//     const schema = Joi.object({
-//       fullName: Joi.string().min(5).required(),
-//       email: Joi.string().email().min(8).required(),
-//       password: Joi.string().min(8).required(),
-//     });
+exports.register = async (req, res) => {
+  try {
+    const schema = Joi.object({
+      fullName: Joi.string().min(5).required(),
+      email: Joi.string().email().min(8).required(),
+      password: Joi.string().min(8).required(),
+    });
 
-//     const { error } = schema.validate(req.body, {
-//       abortEarly: false,
-//     });
+    const { error } = schema.validate(req.body, {
+      abortEarly: false,
+    });
 
-//     if (error) {
-//       return res.status(400).send({
-//         status: "Validation Error",
-//         error: {
-//           message: error.details.map((error) => error.message),
-//         },
-//       });
-//     }
+    if (error) {
+      return res.status(400).send({
+        status: "Validation Error",
+        error: {
+          message: error.details.map((error) => error.message),
+        },
+      });
+    }
 
-//     const { email, password } = req.body;
+    const { email, password } = req.body;
 
-//     const hashedPassword = await bcrypt.hash(password, 8);
+    const hashedPassword = await bcrypt.hash(password, 8);
 
-//     const user = await User.create({ ...req.body, password: hashedPassword });
+    const user = await User.create({ ...req.body, password: hashedPassword });
 
-//     const token = jwt.sign({ id: user.id }, "vian-alfalah");
+    const token = jwt.sign({ id: user.id }, "vian-alfalah");
 
-//     res.send({
-//       status: "Register Success",
-//       data: {
-//         email,
-//         token,
-//       },
-//     });
-//   } catch (error) {
-//     console.log(error);
-//   }
-// };
+    res.send({
+      status: "Register Success",
+      data: {
+        email,
+        token,
+      },
+    });
+  } catch (error) {
+    console.log(error);
+  }
+};
 
 exports.login = async (req, res) => {
   try {

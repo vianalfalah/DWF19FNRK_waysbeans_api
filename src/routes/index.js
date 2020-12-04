@@ -22,7 +22,7 @@ const router = express.Router();
 // router.get("/posts", getPosts);
 
 const { register, login, auth } = require("../controllers/auth");
-// router.post("/register", register);
+router.post("/register", register);
 router.post("/login", login);
 
 //Users
