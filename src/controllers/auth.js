@@ -30,7 +30,8 @@ exports.register = async (req, res) => {
 
     const user = await User.create({ ...req.body, password: hashedPassword });
 
-    const token = jwt.sign({ id: user.id }, "vian-alfalah");
+    const privateKey = "vian-alfalah";
+    const token = jwt.sign({ id: user.id }, privateKey);
 
     res.send({
       status: "Register Success",
@@ -83,7 +84,9 @@ exports.login = async (req, res) => {
       });
     }
 
-    const token = jwt.sign({ id: user.id }, "vian-alfalah");
+    const privateKey = "vian-alfalah";
+
+    const token = jwt.sign({ id: user.id }, privateKey);
 
     res.send({
       status: "Login Success",
@@ -114,7 +117,8 @@ exports.auth = async (req, res, next) => {
       message: "Access Denied",
     });
   try {
-    const verified = jwt.verify(token, "vian-alfalah");
+    const privateKey = "vian-alfalah";
+    const verified = jwt.verify(token, privateKey);
     req.user = verified;
     next();
   } catch (error) {

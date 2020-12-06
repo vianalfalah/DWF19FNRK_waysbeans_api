@@ -17,7 +17,7 @@ app.use(express.json());
 app.use("/api/v1", router);
 app.use("/api/v2", routerv2);
 
-app.listen(port, () => console.log("Listening on port ${port} !!!"));
+app.listen(port, () => console.log(`Listening on port ${port} !!!`));
 
 //get = get data from data source
 //post = store some data to data source

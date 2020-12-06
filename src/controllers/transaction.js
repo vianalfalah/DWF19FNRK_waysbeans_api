@@ -1,16 +1,18 @@
-const { User, Transaction, Product } = require("../../models");
+const { User, Transaction, Product, TranToProd } = require("../../models");
 const responSuccess = "Response Success";
+const Joi = require("joi");
 
 exports.getTransactions = async (req, res) => {
   try {
-    const trans = await Transaction.findAll({
+    const transactions = await Transaction.findAll({
       attributes: {
-        exclude: ["createdAt", "updatedAt", "deletedAt"],
+        exclude: ["createdAt", "updatedAt", "deletedAt", "UserId"],
       },
       include: [
         {
           model: User,
           as: "user",
+          attributes: ["fullName", "email"],
         },
         {
           model: Product,
@@ -18,11 +20,15 @@ exports.getTransactions = async (req, res) => {
           attributes: {
             exclude: ["createdAt", "updatedAt"],
           },
+          through: {
+            attributes: [["orderQuantity", "qty"]],
+            as: "orderQuantity",
+          },
         },
       ],
     });
 
-    if (!trans) {
+    if (!transactions) {
       return res.status(400).send({
         status: "Users Emptty",
         data: {
@@ -34,7 +40,7 @@ exports.getTransactions = async (req, res) => {
     res.send({
       status: responSuccess,
       data: {
-        trans,
+        transactions,
       },
     });
   } catch (error) {
@@ -62,6 +68,18 @@ exports.getSingleTranById = async (req, res) => {
         {
           model: User,
           as: "user",
+        },
+        {
+          model: Product,
+          as: "products",
+          attributes: {
+            exclude: ["createdAt", "updatedAt"],
+          },
+          through: {
+            model: TranToProd,
+            as: "information",
+            attributes: ["orderQuantity"],
+          },
         },
       ],
     });
@@ -91,17 +109,48 @@ exports.getSingleTranById = async (req, res) => {
 
 exports.addTran = async (req, res) => {
   try {
-    const { body } = req;
-
-    const tran = await Transaction.create(body);
-
-    res.send({
-      status: responSuccess,
-      message: "User Succesfully Created",
-      data: {
-        tran,
-      },
+    const { body } = req.body;
+    const schema = Joi.object({
+      name: Joi.string().min(2).required(),
+      email: Joi.string().email().min(10).required(),
+      phone: Joi.number().required(),
+      address: Joi.string().min(5).required(),
+      products: Joi.required(),
+      attachment: Joi.required(),
     });
+    const { error } = schema.validate(body, {
+      abortEarly: false,
+    });
+
+    const { id: userID } = req.user;
+    const tran = await Transaction.create({
+      ...req.body,
+      attachment: req.file.filename,
+    });
+
+    if (tran) {
+      const transactionResult = await Transaction.findOne({
+        where: {
+          id: transaction.id,
+        },
+        include: {
+          model: User,
+          as: "user",
+          attributes: {
+            exclude: ["createdAt", "updatedAt", "password"],
+          },
+        },
+        attributes: {
+          exclude: ["createdAt", "updatedAt"],
+        },
+      });
+
+      res.send({
+        status: responSuccess,
+        message: "User Succesfully Created",
+        data: transactionResult,
+      });
+    }
   } catch (error) {
     console.log(error);
     return res.status(500).send({
@@ -134,15 +183,6 @@ exports.updateTran = async (req, res) => {
       where: {
         id,
       },
-      include: [
-        {
-          model: User,
-          as: "user",
-          attributes: {
-            exclude: ["createdAt", "updatedAt"],
-          },
-        },
-      ],
     });
 
     const getTranAfterUpdate = await Transaction.findOne({

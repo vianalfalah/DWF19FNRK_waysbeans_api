@@ -10,13 +10,14 @@ module.exports = (sequelize, DataTypes) => {
     static associate(models) {
       Transaction.belongsTo(models.User, {
         as: "user",
-        foreignKey: "userID",
+        foreignKey: "userId",
       });
       Transaction.belongsToMany(models.Product, {
         as: "products",
         //through = melewati
         through: {
           model: "TransToProd",
+          as: "information",
         },
         foreignKey: "transID",
       });
@@ -24,10 +25,10 @@ module.exports = (sequelize, DataTypes) => {
   }
   Transaction.init(
     {
-      userID: DataTypes.INTEGER,
+      userId: DataTypes.INTEGER,
       name: DataTypes.STRING,
       email: DataTypes.STRING,
-      phone: DataTypes.INTEGER,
+      phone: DataTypes.STRING,
       address: DataTypes.TEXT,
       attachment: DataTypes.STRING,
       status: DataTypes.STRING,

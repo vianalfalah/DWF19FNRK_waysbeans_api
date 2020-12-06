@@ -1,6 +1,7 @@
 const { Product } = require("../../models");
 const responSuccess = "Response Success";
 const Joi = require("joi");
+const path = require("path");
 
 exports.getProducts = async (req, res) => {
   try {
@@ -73,14 +74,14 @@ exports.getSingleProductById = async (req, res) => {
 
 exports.addProduct = async (req, res) => {
   try {
-    const { body } = req;
+    const { body } = req.body;
 
     const schema = Joi.object({
       name: Joi.string().min(5).required(),
       price: Joi.number().min(6).required(),
       description: Joi.string().min(10).required(),
       stock: Joi.number(),
-      photo: Joi.string(),
+      photo: Joi.string().required(),
     });
 
     const { error } = schema.validate(body, {
@@ -96,7 +97,10 @@ exports.addProduct = async (req, res) => {
       });
     }
 
-    const product = await Product.create(body);
+    const product = await Product.create({
+      ...req.body,
+      photo: req.file.filename,
+    });
 
     res.send({
       status: responSuccess,
@@ -118,7 +122,7 @@ exports.addProduct = async (req, res) => {
 exports.updateProduct = async (req, res) => {
   try {
     const { id } = req.params;
-    const { body: productData } = req;
+    const { body } = req.body;
 
     const getProductById = await Product.findOne({
       where: {
@@ -133,12 +137,13 @@ exports.updateProduct = async (req, res) => {
       });
     }
 
-    const product = await Product.update(productData, {
+    const product = await Product.update(req.body, {
       where: {
         id,
       },
     });
 
+    console.log(body);
     const getProductAfterUpdate = await Product.findOne({
       where: {
         id,

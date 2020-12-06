@@ -13,6 +13,7 @@ module.exports = (sequelize, DataTypes) => {
         //through = melewati
         through: {
           model: "TransToProd",
+          as: "information",
         },
         foreignKey: "prodID",
       });

@@ -2,6 +2,8 @@ const express = require("express");
 
 const router = express.Router();
 
+const { uploadSingle } = require("../../multer/uploadimg");
+
 //Biar Gak Lupa
 // const {
 //   getTodos,
@@ -29,8 +31,6 @@ router.post("/login", login);
 const {
   getUsers,
   getSingleUserById,
-  addUser,
-  updateUser,
   deleteUser,
   restoreUser,
 } = require("../controllers/user");
@@ -52,10 +52,10 @@ const {
 
 router.get("/products", getProducts);
 router.get("/product/:id", getSingleProductById);
-router.post("/product/", addProduct);
-router.patch("/product/:id", updateProduct);
-router.delete("/product/:id", deleteProduct);
-router.post("/product-restore/:id", restoreProduct);
+router.post("/product/", auth, uploadSingle("photo"), addProduct);
+router.patch("/product/:id", auth, updateProduct);
+router.delete("/product/:id", auth, deleteProduct);
+router.post("/product-restore/:id", auth, restoreProduct);
 
 const {
   getTransactions,
@@ -67,10 +67,10 @@ const {
 } = require("../controllers/transaction");
 
 router.get("/transactions", auth, getTransactions);
-router.get("/transaction/:id", getSingleTranById);
-router.post("/transaction/", addTran);
-router.patch("/transaction/:id", updateTran);
-router.delete("/transaction/:id", deleteTran);
-router.post("/transaction-restore/:id", restoreTran);
+router.get("/transaction/:id", auth, getSingleTranById);
+router.post("/transaction/", auth, uploadSingle("attachment"), addTran);
+router.patch("/transaction/:id", auth, updateTran);
+router.delete("/transaction/:id", auth, deleteTran);
+router.post("/transaction-restore/:id", auth, restoreTran);
 
 module.exports = router;
