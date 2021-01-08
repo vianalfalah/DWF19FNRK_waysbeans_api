@@ -2,7 +2,6 @@ const { User, Profile } = require("../../models");
 const Joi = require("joi");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
-const jwtKey = process.env.JWT_KEY;
 
 exports.register = async (req, res) => {
   try {
@@ -46,8 +45,7 @@ exports.register = async (req, res) => {
       isAdmin: false,
     });
 
-    const privateKey = "vian-alfalah";
-    const token = jwt.sign({ id: user.id }, privateKey);
+    const token = jwt.sign({ id: user.id }, process.env.PRIVATE_KEY);
 
     res.send({
       status: "Register Success",
@@ -101,8 +99,7 @@ exports.login = async (req, res) => {
       });
     }
 
-    const privateKey = "vian-alfalah";
-    const token = jwt.sign({ id: user.id }, privateKey);
+    const token = jwt.sign({ id: user.id }, process.env.PRIVATE_KEY);
 
     res.send({
       status: "Login Success",
@@ -134,8 +131,7 @@ exports.auth = async (req, res, next) => {
       message: "Access Denied",
     });
   try {
-    const privateKey = "vian-alfalah";
-    const verified = jwt.verify(token, privateKey);
+    const verified = jwt.verify(token, process.env.PRIVATE_KEY);
     req.user = verified;
     next();
   } catch (error) {

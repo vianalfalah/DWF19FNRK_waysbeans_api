@@ -11,7 +11,7 @@ const router = require("./src/routes");
 const routerv2 = require("./src/routes/routesv2");
 
 //define the server port
-const port = 5000;
+const port = process.env.PORT || 5000;
 
 //use body parser atau express bawaan sehingga kita bisa mengiirm data dari json
 app.use(express.json());
