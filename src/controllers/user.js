@@ -174,8 +174,8 @@ exports.getProfile = async (req, res) => {
       data: {
         isAdmin,
         photo,
-        email: user.email,
-        fullName: user.fullName,
+        email: profile.email,
+        fullName: profile.fullName,
       },
     });
   } catch (error) {
