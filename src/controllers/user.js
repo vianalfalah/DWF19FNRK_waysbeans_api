@@ -175,8 +175,8 @@ exports.getProfile = async (req, res) => {
       data: {
         isAdmin: profile.isAdmin,
         photo: profile.photo,
-        email: user.email,
-        fullName: user.fullName,
+        email: user.dataValues.email,
+        fullName: user.dataValues.fullName,
       },
     });
   } catch (error) {
