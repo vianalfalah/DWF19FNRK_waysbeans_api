@@ -38,7 +38,11 @@ exports.register = async (req, res) => {
 
     const hashedPassword = await bcrypt.hash(password, 10);
 
-    const user = await User.create({ ...req.body, password: hashedPassword });
+    const user = await User.create({
+      fullName,
+      email,
+      password: hashedPassword,
+    });
     await Profile.create({
       userID: user.id,
       photo: "default",
@@ -50,8 +54,8 @@ exports.register = async (req, res) => {
     res.send({
       status: "Register Success",
       data: {
-        fullName,
-        email,
+        fullName: user.fullName,
+        email: user.email,
         token,
       },
     });
@@ -82,7 +86,7 @@ exports.login = async (req, res) => {
     const { email, password } = req.body;
 
     const user = await User.findOne({
-      where: { email: req.body.email },
+      where: { email },
     });
 
     if (!user) {
