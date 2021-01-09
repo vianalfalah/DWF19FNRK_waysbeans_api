@@ -14,7 +14,7 @@ module.exports = {
       isAdmin: {
         type: Sequelize.BOOLEAN,
       },
-      userId: {
+      userID: {
         allowNull: false,
         type: Sequelize.INTEGER,
         references: {

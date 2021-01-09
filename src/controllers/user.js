@@ -11,14 +11,7 @@ exports.getUsers = async (req, res) => {
         model: Profile,
         as: "profile",
         attributes: {
-          exclude: [
-            "photo",
-            "userId",
-            "userID",
-            "createdAt",
-            "updatedAt",
-            "password",
-          ],
+          exclude: ["photo", "userId", "createdAt", "updatedAt", "password"],
         },
       },
     });

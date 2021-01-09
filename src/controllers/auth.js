@@ -40,7 +40,7 @@ exports.register = async (req, res) => {
 
     const user = await User.create({ ...req.body, password: hashedPassword });
     await Profile.create({
-      userId: user.id,
+      userID: user.id,
       photo: "default",
       isAdmin: false,
     });
