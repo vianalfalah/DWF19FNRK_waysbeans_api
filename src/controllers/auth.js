@@ -86,9 +86,9 @@ exports.login = async (req, res) => {
     const { email, password } = req.body;
 
     const user = await User.findOne({
-      where: { email },
+      where: email,
     });
-    console.log(req.body);
+    console.log();
     if (!user) {
       return res.status(400).send({
         message: "Gagal Login",
