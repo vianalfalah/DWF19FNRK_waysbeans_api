@@ -67,7 +67,7 @@ exports.register = async (req, res) => {
 exports.login = async (req, res) => {
   try {
     const schema = Joi.object({
-      email: Joi.string().email().min(8).required(),
+      fullName: Joi.string().required(),
       password: Joi.string().min(8).required(),
     });
 
