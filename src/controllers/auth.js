@@ -87,7 +87,7 @@ exports.login = async (req, res) => {
 
     if (!user) {
       return res.status(400).send({
-        message: "Invalid Login",
+        message: "Gagal Login",
       });
     }
 
