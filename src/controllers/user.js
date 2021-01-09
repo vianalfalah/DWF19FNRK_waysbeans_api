@@ -167,14 +167,14 @@ exports.getProfile = async (req, res) => {
         },
       });
     }
-    const { isAdmin, photo } = profile;
+    // const { isAdmin, photo } = profile;
 
     res.send({
       status: responSuccess,
       message: "successfully get profile data",
       data: {
-        isAdmin,
-        photo,
+        isAdmin: profile.isAdmin,
+        photo: profile.photo,
         email: user.email,
         fullName: user.fullName,
       },
