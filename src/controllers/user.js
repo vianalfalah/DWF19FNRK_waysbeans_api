@@ -168,14 +168,15 @@ exports.getProfile = async (req, res) => {
       });
     }
     const { isAdmin, photo } = profile;
+    const { email, fullName } = user;
     res.send({
       status: responSuccess,
       message: "successfully get profile data",
       data: {
         isAdmin,
         photo,
-        email: profile.email,
-        fullName: profile.fullName,
+        email,
+        fullName,
       },
     });
   } catch (error) {
