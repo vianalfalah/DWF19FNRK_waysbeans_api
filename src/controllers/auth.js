@@ -16,7 +16,7 @@ exports.register = async (req, res) => {
     });
     console.log(req.body);
     const checkUser = await User.findOne(req.body, {
-      where: { email },
+      where: { email: req.body.email },
     });
     console.log("check", checkUser);
     if (checkUser) {
