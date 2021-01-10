@@ -15,8 +15,8 @@ exports.register = async (req, res) => {
       abortEarly: false,
     });
     console.log(req.body);
-    const checkUser = await User.findOne({
-      where: { email: req.body.email },
+    const checkUser = await User.findOne(req.body, {
+      where: { email },
     });
     console.log("check", checkUser);
     if (checkUser) {
