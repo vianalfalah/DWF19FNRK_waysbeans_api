@@ -1,2 +1,2 @@
-release: npx sequelize db:migrate:undo:all;npx sequelize db:migrate;npx sequelize db:seed;
+release: node_modules/.bin/sequelize db:migrate;
 web: node index.js;
