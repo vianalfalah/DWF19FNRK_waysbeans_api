@@ -18,7 +18,7 @@ exports.register = async (req, res) => {
     const checkUser = await User.findOne({
       where: { email: req.body.email },
     });
-
+    console.log("check", checkUser);
     if (checkUser) {
       return res.send({
         status: "email alredy taken",
