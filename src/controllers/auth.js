@@ -15,7 +15,7 @@ exports.register = async (req, res) => {
     const { error } = schema.validate(body, {
       abortEarly: false,
     });
-    console.log(req.body);
+    console.log(body);
     const checkUser = await User.findOne({
       where: { email: body.email },
     });
