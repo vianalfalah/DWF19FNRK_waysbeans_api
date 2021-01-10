@@ -173,10 +173,10 @@ exports.getProfile = async (req, res) => {
       status: responSuccess,
       message: "successfully get profile data",
       data: {
-        isAdmin,
-        photo,
         email: user.email,
         fullName: user.fullName,
+        isAdmin,
+        photo,
       },
     });
   } catch (error) {
