@@ -26,7 +26,7 @@ module.exports = (sequelize, DataTypes) => {
     },
     {
       sequelize,
-      paranoid: true, //Paranoid Model to active soft delete
+      // paranoid: true, //Paranoid Model to active soft delete
       modelName: "User",
     }
   );

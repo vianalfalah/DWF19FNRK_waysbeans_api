@@ -25,11 +25,6 @@ module.exports = {
         allowNull: false,
         type: Sequelize.DATE,
       },
-      deletedAt: {
-        allowNull: false,
-        type: Sequelize.DATE,
-        defaultValue: 0,
-      },
     });
   },
   down: async (queryInterface, Sequelize) => {
