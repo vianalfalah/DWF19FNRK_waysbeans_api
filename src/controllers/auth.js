@@ -67,6 +67,8 @@ exports.register = async (req, res) => {
 
 exports.login = async (req, res) => {
   try {
+    const { email, password } = req.body;
+
     const schema = Joi.object({
       email: Joi.string().email().required(),
       password: Joi.string().min(8).required(),
@@ -83,8 +85,6 @@ exports.login = async (req, res) => {
         },
       });
     }
-
-    const { email, password } = req.body;
 
     const user = await User.findOne({
       where: { email },
