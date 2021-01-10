@@ -86,7 +86,7 @@ exports.login = async (req, res) => {
     const { fullName, password } = req.body;
 
     const user = await User.findOne({
-      where: { fullName },
+      where: { fullName: fullName },
     });
     console.log("user", user);
     if (!user) {
