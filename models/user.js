@@ -10,11 +10,11 @@ module.exports = (sequelize, DataTypes) => {
     static associate(models) {
       User.hasMany(models.Transaction, {
         as: "transactions",
-        foreignKey: "userID",
+        foreignKey: "userId",
       });
       User.hasOne(models.Profile, {
         as: "profile",
-        foreignKey: "userID",
+        foreignKey: "userId",
       });
     }
   }

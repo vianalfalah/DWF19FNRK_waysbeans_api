@@ -10,7 +10,7 @@ module.exports = (sequelize, DataTypes) => {
     static associate(models) {
       Transaction.belongsTo(models.User, {
         as: "user",
-        foreignKey: "userID",
+        foreignKey: "userId",
       });
       Transaction.belongsToMany(models.Product, {
         as: "products",
@@ -24,7 +24,7 @@ module.exports = (sequelize, DataTypes) => {
   }
   Transaction.init(
     {
-      userID: DataTypes.INTEGER,
+      userId: DataTypes.INTEGER,
       name: DataTypes.STRING,
       email: DataTypes.STRING,
       pos: DataTypes.INTEGER,

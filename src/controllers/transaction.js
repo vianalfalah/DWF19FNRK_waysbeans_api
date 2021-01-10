@@ -147,7 +147,7 @@ exports.addTran = async (req, res) => {
 
     const { name, email, pos, phone, address, attachment, products } = req.body;
 
-    const { id: userID } = req.user;
+    const { id: userId } = req.user;
     const transaction = await Transaction.create({
       name,
       email,
@@ -156,7 +156,7 @@ exports.addTran = async (req, res) => {
       address,
       attachment: req.file.filename,
       status: "Waiting Approve",
-      userID,
+      userId,
     });
     const productsData = JSON.parse(products);
     await Promise.all(

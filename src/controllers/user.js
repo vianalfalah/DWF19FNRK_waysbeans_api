@@ -152,7 +152,7 @@ exports.getProfile = async (req, res) => {
     const user = await User.findOne({
       where: { id },
     });
-    const profile = await Profile.findOne({ where: { userID: id } });
+    const profile = await Profile.findOne({ where: { userId: id } });
     if (!profile) {
       return res.send({
         status: responSuccess,

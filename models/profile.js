@@ -18,7 +18,7 @@ module.exports = (sequelize, DataTypes) => {
     {
       photo: DataTypes.STRING,
       isAdmin: DataTypes.BOOLEAN,
-      userID: DataTypes.INTEGER,
+      userId: DataTypes.INTEGER,
     },
     {
       sequelize,
