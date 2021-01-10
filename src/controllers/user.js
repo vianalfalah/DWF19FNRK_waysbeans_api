@@ -159,8 +159,8 @@ exports.getProfile = async (req, res) => {
         message: "not found but we will send default data",
         data: {
           profile: {
-            email: user.email,
-            fullName: user.fullName,
+            email: user.dataValues.email,
+            fullName: user.dataValues.fullName,
             isAdmin: false,
             photo: null,
           },
