@@ -85,10 +85,10 @@ exports.login = async (req, res) => {
       });
     }
 
-    const { fullName, password } = req.body;
+    const { email, password } = req.body;
 
     const user = await User.findOne({
-      where: { fullName: fullName },
+      where: { email },
     });
     console.log("user", user);
     if (!user) {
