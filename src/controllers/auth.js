@@ -5,18 +5,20 @@ const jwt = require("jsonwebtoken");
 
 exports.register = async (req, res) => {
   try {
+
+    const {body} = req.body,
     const schema = Joi.object({
       fullName: Joi.string().min(5).required(),
       email: Joi.string().email().min(4).required(),
       password: Joi.string().min(8).required(),
     });
 
-    const { error } = schema.validate(req.body, {
+    const { error } = schema.validate(body, {
       abortEarly: false,
     });
     console.log(req.body);
-    const checkUser = await User.findOne(req.body, {
-      where: { email: req.body.email },
+    const checkUser = await User.findOne({
+      where: { email: body.email},
     });
     console.log("check", checkUser);
     if (checkUser) {
