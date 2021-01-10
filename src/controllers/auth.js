@@ -86,6 +86,9 @@ exports.login = async (req, res) => {
       });
     }
 
+    console.log("email", email);
+    console.log("password", password);
+
     const user = await User.findOne({
       where: { email },
     });
