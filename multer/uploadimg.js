@@ -1,12 +1,27 @@
+const cloudinary = require("cloudinary").v2;
+const { CloudinaryStorage } = require("multer-storage-cloudinary");
 const multer = require("multer");
 
+cloudinary.config()({
+  cloud_name: "vianalfalah",
+  api_key: "336741528613214",
+  api_secret: "qwrahcGTtZcU9r5QQ0cYn7mY4rE",
+});
+
 exports.uploadSingle = (fileName) => {
-  const storage = multer.diskStorage({
-    destination: function (req, file, cb) {
-      cb(null, "uploads");
-    },
-    filename: function (req, file, cb) {
-      cb(null, Date.now() + "-" + file.originalname);
+  // const storage = multer.diskStorage({
+  //   destination: function (req, file, cb) {
+  //     cb(null, "uploads");
+  //   },
+  //   filename: function (req, file, cb) {
+  //     cb(null, Date.now() + "-" + file.originalname);
+  //   },
+  const storage = new CloudinaryStorage({
+    cloudinary: cloudinary,
+    params: {
+      folder: "uploads",
+      format: async (req, file) => "png", // supports promises as well
+      public_id: (req, file) => "computed-filename-using-request",
     },
   });
 
