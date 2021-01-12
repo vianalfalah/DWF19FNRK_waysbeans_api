@@ -11,10 +11,10 @@ exports.uploadSingle = (fileName) => {
   //     cb(null, Date.now() + "-" + file.originalname);
   //   },
 
-  cloudinary.config()({
-    cloud_name: "vianalfalah",
-    api_key: "336741528613214",
-    api_secret: "qwrahcGTtZcU9r5QQ0cYn7mY4rE",
+  cloudinary.config({
+    cloud_name: process.env.CLOUD_NAME,
+    api_key: process.env.API_KEY,
+    api_secret: process.env.API_SECRET,
   });
   const storage = new CloudinaryStorage({
     cloudinary: cloudinary,
