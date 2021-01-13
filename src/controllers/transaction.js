@@ -154,7 +154,7 @@ exports.addTran = async (req, res) => {
       pos,
       phone,
       address,
-      attachment: req.file.filename,
+      attachment: req.file.path,
       status: "Waiting Approve",
       userId,
     });

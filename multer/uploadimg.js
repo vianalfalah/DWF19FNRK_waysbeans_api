@@ -18,11 +18,8 @@ exports.uploadSingle = (fileName) => {
   });
   const storage = new CloudinaryStorage({
     cloudinary: cloudinary,
-    params: {
-      folder: "uploads",
-      format: async (req, file) => "png", // supports promises as well
-      public_id: (req, file) => "computed-filename-using-request",
-    },
+    folder: "waysbeans",
+    allowedFormats: ["jpg", "png"],
   });
 
   const imageFilter = function (req, file, cb) {

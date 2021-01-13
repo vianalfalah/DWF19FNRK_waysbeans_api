@@ -97,6 +97,10 @@ exports.addProduct = async (req, res) => {
       });
     }
 
+    // const { files } = req;
+    // const fotoName = files;
+    // console.log(files);
+
     const product = await Product.create({
       ...req.body,
       photo: req.file.path,
