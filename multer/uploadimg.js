@@ -17,9 +17,19 @@ exports.uploadSingle = (fileName) => {
     api_secret: process.env.API_SECRET,
   });
   const storage = new CloudinaryStorage({
+    // cloudinary: cloudinary,
+    // folder: "waysbeans",
+    // allowedFormats: ["jpg", "png"],
     cloudinary: cloudinary,
-    folder: "waysbeans",
-    allowedFormats: ["jpg", "png"],
+    params: async (req, file) => {
+      // async code using `req` and `file`
+      // ...
+      return {
+        folder: "waysbeans",
+        format: ["jpg", "png", "jpeg"],
+        public_id: "some_unique_id",
+      };
+    },
   });
 
   const imageFilter = function (req, file, cb) {
@@ -35,7 +45,7 @@ exports.uploadSingle = (fileName) => {
   const maxSize = 5 * 1000 * 1000;
 
   const upload = multer({
-    storage,
+    // storage,
     fileFilter: imageFilter,
     limits: {
       fileSize: maxSize,
