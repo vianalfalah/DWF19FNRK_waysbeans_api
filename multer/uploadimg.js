@@ -26,8 +26,7 @@ exports.uploadSingle = (fileName) => {
       // ...
       return {
         folder: "waysbeans",
-        format: ["jpg", "png", "jpeg"],
-        public_id: "some_unique_id",
+        public_id: `${Date.now()} - ${file.originalname}`,
       };
     },
   });
@@ -45,7 +44,7 @@ exports.uploadSingle = (fileName) => {
   const maxSize = 5 * 1000 * 1000;
 
   const upload = multer({
-    // storage,
+    storage,
     fileFilter: imageFilter,
     limits: {
       fileSize: maxSize,
